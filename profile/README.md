@@ -148,7 +148,7 @@ User Request
 
 ### 1. evalys-privacy-engine
 
-**Privacy Gradient Engine (PGE)** - The orchestration layer for privacy modes.
+**Privacy Gradient Engine (PGE):-** The orchestration layer for privacy modes.
 
 **Purpose**: Manages three privacy modes (Normal, Stealth, Max Ghost) and dynamically adjusts privacy features based on transaction context, risk level, and user preferences.
 
@@ -169,7 +169,7 @@ User Request
 
 ### 2. evalys-burner-swarm
 
-**Burner Swarm Fabric** - Disposable wallet management system.
+**Burner Swarm Fabric:-** Disposable wallet management system.
 
 **Purpose**: Generates, manages, and rotates disposable Solana wallets (burner wallets) for privacy-preserving transactions.
 
@@ -191,7 +191,7 @@ User Request
 
 ### 3. evalys-curve-intelligence
 
-**Curve Intelligence Layer** - Real-time bonding curve analysis and risk detection.
+**Curve Intelligence Layer:-** - Real-time bonding curve analysis and risk detection.
 
 **Purpose**: Analyzes bonding curves, detects risks, identifies optimal execution windows, and recognizes trading patterns.
 
@@ -213,7 +213,7 @@ User Request
 
 ### 4. evalys-launchpad-adapters
 
-**Launchpad Adapter Layer** - Unified interface for memecoin launchpads.
+**Launchpad Adapter Layer:-** Unified interface for memecoin launchpads.
 
 **Purpose**: Provides a standardized interface for interacting with different memecoin launchpad platforms (Pump.fun, Bonk.fun, and others).
 
@@ -235,7 +235,7 @@ User Request
 
 ### 5. evalys-execution-engine
 
-**Execution Engine** - Privacy-preserving transaction execution.
+**Execution Engine:-** Privacy-preserving transaction execution.
 
 **Purpose**: Executes transactions with privacy-preserving techniques including order slicing, timing randomization, and MEV protection.
 
@@ -258,7 +258,7 @@ User Request
 
 ### 6. evalys-web-ui
 
-**Web Dashboard** - User interface for Evalys ecosystem.
+**Web Dashboard:-** User interface for Evalys ecosystem.
 
 **Purpose**: React-based dashboard providing real-time analytics, transaction monitoring, and system configuration.
 
@@ -279,7 +279,7 @@ User Request
 
 ### 7. integration-examples
 
-**Integration Examples** - Comprehensive examples demonstrating component integration.
+**Integration Examples:-** Comprehensive examples demonstrating component integration.
 
 **Purpose**: Provides working examples showing how all Evalys components work together.
 
