@@ -21,7 +21,7 @@
 
 The system is architected as a collection of independent, reusable components that can operate standalone or integrate seamlessly to provide comprehensive privacy-preserving transaction execution capabilities.
 
-**Evalys now integrates with Arcium's encrypted supercomputer** – enabling confidential computation for strategy planning, risk assessment, and curve analytics. Your trading intent, risk profile, and strategy are computed confidentially via MPC, while Evalys executes the resulting plan using burner swarms, MEV-safe routing, and launchpad adapters on Solana.
+**Evalys now integrates with Arcium's encrypted supercomputer** that enables confidential computation for strategy planning, risk assessment, and curve analytics. Your trading intent, risk profile, and strategy are computed confidentially via MPC, while Evalys executes the resulting plan using burner swarms, MEV-safe routing, and launchpad adapters on Solana.
 
 ---
 
@@ -185,9 +185,9 @@ User Request
 
 ### 1. evalys-privacy-engine
 
-**Privacy Gradient Engine (PGE)** - The orchestration layer for privacy modes.
+**Privacy Gradient Engine (PGE)** is the orchestration layer for privacy modes.
 
-**Purpose**: Manages privacy modes (Normal, Stealth, Max Ghost, **Confidential**) and dynamically adjusts privacy features based on transaction context, risk level, and user preferences.
+**Purpose**: it manages privacy modes (Normal, Stealth, Max Ghost, **Confidential**) and dynamically adjusts privacy features based on transaction context, risk level, and user preferences.
 
 **Key Features**:
 - Four-tier privacy gradient system (including Arcium-powered Confidential mode)
@@ -207,9 +207,9 @@ User Request
 
 ### 2. evalys-burner-swarm
 
-**Burner Swarm Fabric** - Disposable wallet management system.
+**Burner Swarm Fabric** is the disposable wallet management system.
 
-**Purpose**: Generates, manages, and rotates disposable Solana wallets (burner wallets) for privacy-preserving transactions.
+**Purpose**: it generates, manages, and rotates disposable Solana wallets (burner wallets) for privacy-preserving transactions.
 
 **Key Features**:
 - Secure wallet generation with encrypted key storage
@@ -229,9 +229,9 @@ User Request
 
 ### 3. evalys-curve-intelligence
 
-**Curve Intelligence Layer** - Real-time bonding curve analysis and risk detection.
+**Curve Intelligence Layer** is the real-time bonding curve analysis and risk detection.
 
-**Purpose**: Analyzes bonding curves, detects risks, identifies optimal execution windows, and recognizes trading patterns.
+**Purpose**: it analyzes bonding curves, detects risks, identifies optimal execution windows, and recognizes trading patterns.
 
 **Key Features**:
 - Real-time curve analysis (slope, liquidity, volatility)
@@ -252,9 +252,9 @@ User Request
 
 ### 4. evalys-launchpad-adapters
 
-**Launchpad Adapter Layer** - Unified interface for memecoin launchpads.
+**Launchpad Adapter Layer** is our unified interface for memecoin launchpads.
 
-**Purpose**: Provides a standardized interface for interacting with different memecoin launchpad platforms (Pump.fun, Bonk.fun, and others).
+**Purpose**: it provides a standardized interface for interacting with different memecoin launchpad platforms (Pump.fun, Bonk.fun, and others).
 
 **Key Features**:
 - Unified adapter interface for multiple platforms
@@ -274,9 +274,9 @@ User Request
 
 ### 5. evalys-execution-engine
 
-**Execution Engine** - Privacy-preserving transaction execution.
+**Execution Engine** this is the privacy-preserving transaction execution.
 
-**Purpose**: Executes transactions with privacy-preserving techniques including order slicing, timing randomization, and MEV protection.
+**Purpose**: will executes transactions with privacy-preserving techniques including order slicing, timing randomization, and MEV protection.
 
 **Key Features**:
 - Order slicing and fragmentation
@@ -297,9 +297,9 @@ User Request
 
 ### 6. evalys-web-ui
 
-**Web Dashboard** - User interface for Evalys ecosystem.
+**Web Dashboard** evalys user interface for Evalys ecosystem.
 
-**Purpose**: React-based dashboard providing real-time analytics, transaction monitoring, and system configuration.
+**Purpose**: it's our React-based dashboard providing real-time analytics, transaction monitoring, and system configuration.
 
 **Key Features**:
 - Real-time token intelligence visualization
@@ -318,9 +318,9 @@ User Request
 
 ### 7. integration-examples
 
-**Integration Examples** - Comprehensive examples demonstrating component integration.
+**Integration Examples** it is comprehensive examples demonstrating component integration.
 
-**Purpose**: Provides working examples showing how all Evalys components work together.
+**Purpose**: it will provides working examples showing how all Evalys components work together.
 
 **Contents**:
 - Full flow example (end-to-end integration)
@@ -328,7 +328,7 @@ User Request
 - Curve analysis example (intelligence-driven decisions)
 - Privacy orchestration example (mode selection scenarios)
 
-**Status**: ✅ Available
+**Status**: ✅ In Development
 
 **Repository**: `https://github.com/evalysfun/evalys` (in integration-examples directory)
 
@@ -336,9 +336,9 @@ User Request
 
 ### 8. evalys-confidential-intel-mxe
 
-**Confidential Intel MXE** - Arcium-powered encrypted computation program.
+**Confidential Intel MXE** - it is arcium-powered encrypted computation program.
 
-**Purpose**: Solana program (MXE) that provides confidential strategy planning, risk scoring, and curve analytics using Arcium's encrypted supercomputer.
+**Purpose**: it is a Solana program (MXE) that provides confidential strategy planning, risk scoring, and curve analytics using Arcium's encrypted supercomputer.
 
 **Key Features**:
 - Three encrypted computation functions (strategy plan, risk score, curve eval)
@@ -357,7 +357,7 @@ User Request
 
 ### 9. evalys-arcium-bridge-service
 
-**Arcium Bridge Service** - Connects Evalys to Arcium's encrypted supercomputer.
+**Arcium Bridge Service** - it connects Evalys to Arcium's encrypted supercomputer.
 
 **Purpose**: FastAPI microservice that handles encryption, submits confidential computations to Arcium MXE, and feeds results back to Evalys components.
 
