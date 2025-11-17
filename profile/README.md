@@ -9,6 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Solana](https://img.shields.io/badge/Solana-14C294?logo=solana&logoColor=white)](https://solana.com/)
+[![Arcium](https://img.shields.io/badge/Arcium-Encrypted%20Compute-8B5CF6)](https://arcium.com/)
 
 </div>
 
@@ -19,6 +20,8 @@
 **Evalys** is a modular, privacy-preserving infrastructure system designed specifically for memecoin launchpad platforms on Solana. Built with a focus on privacy, security, and composability, Evalys provides a complete toolkit for executing transactions while maintaining user anonymity and protecting against MEV attacks.
 
 The system is architected as a collection of independent, reusable components that can operate standalone or integrate seamlessly to provide comprehensive privacy-preserving transaction execution capabilities.
+
+**Evalys now integrates with Arcium's encrypted supercomputer** – enabling confidential computation for strategy planning, risk assessment, and curve analytics. Your trading intent, risk profile, and strategy are computed confidentially via MPC, while Evalys executes the resulting plan using burner swarms, MEV-safe routing, and launchpad adapters on Solana.
 
 ---
 
@@ -48,10 +51,10 @@ Evalys follows a **layered architecture** where each layer provides specific fun
 │  │ API (Port 8001)  │  │ API (Port 8003) │  │ API (Port 8004)  │            │
 │  └──────────────────┘  └──────────────────┘  └──────────────────┘            │
 │                                                                               │
-│  ┌──────────────────┐  ┌──────────────────┐                                  │
-│  │ Burner Swarm     │  │ Launchpad        │                                  │
-│  │ API (Port 8002)  │  │ Adapters         │                                  │
-│  └──────────────────┘  │ API (Port 8005)  │                                  │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐            │
+│  │ Burner Swarm     │  │ Launchpad        │  │ Arcium Bridge   │            │
+│  │ API (Port 8002)  │  │ Adapters         │  │ API (Port 8010) │            │
+│  └──────────────────┘  │ API (Port 8005)  │  └──────────────────┘            │
 │                        └──────────────────┘                                  │
 └───────────────────────────────┬──────────────────────────────────────────────┘
                                 │
@@ -97,6 +100,34 @@ Evalys follows a **layered architecture** where each layer provides specific fun
 │  │  • MEV Protection (Jito Bundles, Private Routing)                   │      │
 │  │  • Transaction Building & Monitoring                                │      │
 │  └────────────────────────────────────────────────────────────────────┘      │
+│                                                                                │
+│  ┌────────────────────────────────────────────────────────────────────┐      │
+│  │                    Confidential Intel Client                        │      │
+│  │  • Arcium Bridge Integration                                        │      │
+│  │  • Encrypted Computation Requests                                   │      │
+│  │  • Confidential Strategy Planning                                   │      │
+│  │  • Multi-Party Computation (MPC)                                     │      │
+│  └────────────────────────────────────────────────────────────────────┘      │
+└───────────────────────────────┬──────────────────────────────────────────────┘
+                                │
+                                │ Solana RPC / On-Chain Operations
+                                │
+┌───────────────────────────────▼──────────────────────────────────────────────┐
+│                           ARCIUM LAYER (NEW)                                   │
+│                                                                                │
+│  ┌────────────────────────────────────────────────────────────────────┐      │
+│  │         Evalys Confidential Intel MXE (Solana)                      │      │
+│  │  • confidential_strategy_plan()                                    │      │
+│  │  • confidential_risk_score()                                        │      │
+│  │  • confidential_curve_eval()                                        │      │
+│  └────────────────────────────────────────────────────────────────────┘      │
+│                                                                                │
+│  ┌────────────────────────────────────────────────────────────────────┐      │
+│  │              Arcium MPC Cluster (Off-Chain)                        │      │
+│  │  • Encrypted Computation Execution                                  │      │
+│  │  • Zero-Knowledge Data Processing                                   │      │
+│  │  • Privacy-Preserving Analytics                                     │      │
+│  └────────────────────────────────────────────────────────────────────┘      │
 └───────────────────────────────┬──────────────────────────────────────────────┘
                                 │
                                 │ Solana RPC / On-Chain Operations
@@ -126,11 +157,17 @@ Evalys follows a **layered architecture** where each layer provides specific fun
 ```
 User Request
     │
-    ├─► Privacy Engine ──► Selects Privacy Mode (Normal/Stealth/Max Ghost)
+    ├─► Privacy Engine ──► Selects Privacy Mode (Normal/Stealth/Max Ghost/Confidential)
+    │                          │
+    │                          ├─► [Optional] Arcium Bridge ──► Confidential Strategy Planning
+    │                          │      │
+    │                          │      └─► Arcium MXE ──► MPC Computation ──► Encrypted Plan
     │                          │
     │                          ├─► Burner Swarm ──► Provides Disposable Wallet
     │                          │
     │                          ├─► Curve Intelligence ──► Analyzes Opportunity
+    │                          │      │
+    │                          │      └─► [Optional] Arcium Bridge ──► Confidential Curve Eval
     │                          │
     │                          └─► Launchpad Adapter ──► Builds Instructions
     │
@@ -148,14 +185,15 @@ User Request
 
 ### 1. evalys-privacy-engine
 
-**Privacy Gradient Engine (PGE):-** The orchestration layer for privacy modes.
+**Privacy Gradient Engine (PGE)** - The orchestration layer for privacy modes.
 
-**Purpose**: Manages three privacy modes (Normal, Stealth, Max Ghost) and dynamically adjusts privacy features based on transaction context, risk level, and user preferences.
+**Purpose**: Manages privacy modes (Normal, Stealth, Max Ghost, **Confidential**) and dynamically adjusts privacy features based on transaction context, risk level, and user preferences.
 
 **Key Features**:
-- Three-tier privacy gradient system
+- Four-tier privacy gradient system (including Arcium-powered Confidential mode)
 - Intelligent mode selection based on risk assessment
 - Dynamic privacy level adjustment
+- **Arcium integration** for confidential strategy planning
 - REST API for integration (Port 8001)
 - Standalone operation capability
 
@@ -169,7 +207,7 @@ User Request
 
 ### 2. evalys-burner-swarm
 
-**Burner Swarm Fabric:-** Disposable wallet management system.
+**Burner Swarm Fabric** - Disposable wallet management system.
 
 **Purpose**: Generates, manages, and rotates disposable Solana wallets (burner wallets) for privacy-preserving transactions.
 
@@ -191,7 +229,7 @@ User Request
 
 ### 3. evalys-curve-intelligence
 
-**Curve Intelligence Layer:-** - Real-time bonding curve analysis and risk detection.
+**Curve Intelligence Layer** - Real-time bonding curve analysis and risk detection.
 
 **Purpose**: Analyzes bonding curves, detects risks, identifies optimal execution windows, and recognizes trading patterns.
 
@@ -200,6 +238,7 @@ User Request
 - Risk detection (sniper activity, buy clusters, liquidity risks)
 - Execution window optimization
 - Pattern recognition (whale movements, bot activity, pump/dump patterns)
+- **Confidential curve evaluation** via Arcium (optional)
 - REST API for integration (Port 8003)
 - Standalone operation capability
 
@@ -213,7 +252,7 @@ User Request
 
 ### 4. evalys-launchpad-adapters
 
-**Launchpad Adapter Layer:-** Unified interface for memecoin launchpads.
+**Launchpad Adapter Layer** - Unified interface for memecoin launchpads.
 
 **Purpose**: Provides a standardized interface for interacting with different memecoin launchpad platforms (Pump.fun, Bonk.fun, and others).
 
@@ -235,7 +274,7 @@ User Request
 
 ### 5. evalys-execution-engine
 
-**Execution Engine:-** Privacy-preserving transaction execution.
+**Execution Engine** - Privacy-preserving transaction execution.
 
 **Purpose**: Executes transactions with privacy-preserving techniques including order slicing, timing randomization, and MEV protection.
 
@@ -258,7 +297,7 @@ User Request
 
 ### 6. evalys-web-ui
 
-**Web Dashboard:-** User interface for Evalys ecosystem.
+**Web Dashboard** - User interface for Evalys ecosystem.
 
 **Purpose**: React-based dashboard providing real-time analytics, transaction monitoring, and system configuration.
 
@@ -279,7 +318,7 @@ User Request
 
 ### 7. integration-examples
 
-**Integration Examples:-** Comprehensive examples demonstrating component integration.
+**Integration Examples** - Comprehensive examples demonstrating component integration.
 
 **Purpose**: Provides working examples showing how all Evalys components work together.
 
@@ -295,11 +334,54 @@ User Request
 
 ---
 
+### 8. evalys-confidential-intel-mxe
+
+**Confidential Intel MXE** - Arcium-powered encrypted computation program.
+
+**Purpose**: Solana program (MXE) that provides confidential strategy planning, risk scoring, and curve analytics using Arcium's encrypted supercomputer.
+
+**Key Features**:
+- Three encrypted computation functions (strategy plan, risk score, curve eval)
+- Arcis-based confidential instructions
+- MPC execution via Arcium network
+- Zero-knowledge data processing
+- Deployed on Solana blockchain
+
+**Technology**: Rust, Arcis, Anchor, Solana
+
+**Status**: ✅ Framework Ready
+
+**Repository**: `https://github.com/evalysfun/evalys-confidential-intel-mxe`
+
+---
+
+### 9. evalys-arcium-bridge-service
+
+**Arcium Bridge Service** - Connects Evalys to Arcium's encrypted supercomputer.
+
+**Purpose**: FastAPI microservice that handles encryption, submits confidential computations to Arcium MXE, and feeds results back to Evalys components.
+
+**Key Features**:
+- Client-side encryption of sensitive inputs
+- MXE computation submission and monitoring
+- Result decryption and processing
+- REST API for integration (Port 8010)
+- Standalone operation capability
+
+**Technology**: Python 3.10+, FastAPI, Solana-py, Solders
+
+**Status**: ✅ Production Ready
+
+**Repository**: `https://github.com/evalysfun/evalys-arcium-bridge-service`
+
+---
+
 ## System Capabilities
 
 ### Privacy Features
 
-- **Three-Tier Privacy Gradient**: Normal, Stealth, and Max Ghost modes with increasing privacy protection
+- **Four-Tier Privacy Gradient**: Normal, Stealth, Max Ghost, and **Confidential** modes with increasing privacy protection
+- **Confidential Computation**: Arcium-powered strategy planning and risk assessment without exposing sensitive data
 - **Disposable Wallets**: Burner wallet system for transaction unlinkability
 - **Order Fragmentation**: Large orders split into randomized fragments
 - **Timing Randomization**: Unpredictable delays to prevent pattern detection
@@ -308,6 +390,8 @@ User Request
 ### Intelligence Features
 
 - **Real-Time Curve Analysis**: Continuous monitoring of bonding curve dynamics
+- **Confidential Analytics**: Arcium-powered curve evaluation and risk scoring with encrypted user context
+- **Multi-User Intelligence**: Aggregated insights across users without exposing individual behavior
 - **Risk Detection**: Automated identification of sniper activity, buy clusters, and liquidity risks
 - **Pattern Recognition**: Detection of whale movements, bot activity, and market anomalies
 - **Execution Optimization**: Calculation of optimal execution windows based on market conditions
@@ -324,10 +408,11 @@ User Request
 ## Technology Stack
 
 ### Backend
-- **Language**: Python 3.10+
-- **Framework**: FastAPI (REST APIs)
+- **Language**: Python 3.10+, Rust (for MXE)
+- **Framework**: FastAPI (REST APIs), Anchor (Solana programs)
 - **Blockchain**: Solana (solana-py, solders)
-- **Cryptography**: PyNaCl (encryption)
+- **Confidential Compute**: Arcium (MPC, Arcis DSL)
+- **Cryptography**: PyNaCl (encryption), x25519 + Rescue cipher (Arcium)
 - **Data Processing**: NumPy, SciPy
 
 ### Frontend
@@ -361,6 +446,8 @@ User Request
    git clone https://github.com/evalysfun/evalys-curve-intelligence
    git clone https://github.com/evalysfun/evalys-launchpad-adapters
    git clone https://github.com/evalysfun/evalys-execution-engine
+   git clone https://github.com/evalysfun/evalys-arcium-bridge-service
+   git clone https://github.com/evalysfun/evalys-confidential-intel-mxe
    ```
 
 2. **Set up shared virtual environment** (recommended):
@@ -424,6 +511,8 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 | Curve Intelligence | ✅ Production Ready | 0.1.0 | ✅ Passing |
 | Launchpad Adapters | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Execution Engine | ✅ Production Ready | 0.1.0 | ✅ Passing |
+| Arcium Bridge Service | ✅ Production Ready | 0.1.0 | ✅ Passing |
+| Confidential Intel MXE | ✅ Framework Ready | 0.1.0 | - |
 | Web UI | 🚧 In Development | - | - |
 
 ---
@@ -433,6 +522,7 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 - **Component READMEs**: Each repository includes comprehensive documentation
 - **Quick Start Guides**: Step-by-step setup instructions for each component
 - **Integration Examples**: Working examples demonstrating component integration
+- **Arcium Integration Guide**: Complete guide to Arcium integration (`ARCIUM_INTEGRATION_GUIDE.md`)
 - **API Documentation**: Auto-generated API docs available when running each service
 
 ---
@@ -470,7 +560,7 @@ See individual repository LICENSE files for details.
 
 ## Security
 
-Security is a core principle of Evalys. If you discover a security vulnerability, please report it to: **security@evalys.io**
+Security is a core principle of Evalys. If you discover a security vulnerability, please report it via: **[Twitter](https://x.com/evalysfun)**
 
 **Do not** open public issues for security vulnerabilities.
 
@@ -481,7 +571,7 @@ Security is a core principle of Evalys. If you discover a security vulnerability
 - **Documentation**: See individual component READMEs
 - **Issues**: Open an issue in the relevant repository
 - **Discussions**: GitHub Discussions (coming soon)
-- **Email**: team@evalys.io
+- **Twitter**: [@evalysfun](https://x.com/evalysfun)
 
 ---
 
@@ -493,6 +583,8 @@ Security is a core principle of Evalys. If you discover a security vulnerability
 - [x] Curve Intelligence
 - [x] Launchpad Adapters (framework)
 - [x] Execution Engine
+- [x] Arcium Bridge Service
+- [x] Confidential Intel MXE (framework)
 
 ### Phase 2: Platform Integration 🚧
 - [ ] Pump.fun full implementation
@@ -504,6 +596,8 @@ Security is a core principle of Evalys. If you discover a security vulnerability
 - [ ] Advanced pattern recognition
 - [ ] Machine learning models for risk prediction
 - [ ] Cross-chain support
+- [ ] Expanded Arcium MXE computations
+- [ ] Multi-user confidential analytics
 
 ### Phase 4: Ecosystem 📋
 - [ ] SDK development
@@ -528,6 +622,8 @@ https://github.com/evalysfun
 
 **Evalys** - Privacy-preserving infrastructure for the future of memecoin trading
 
-[Website](https://evalys.io) • [Documentation](https://docs.evalys.io) • [GitHub](https://github.com/evalysfun)
+*Powered by Arcium's encrypted supercomputer for confidential computation*
+
+[Website](https://evalys.fun) • [Documentation](https://docs.evalys.fun) • [GitHub](https://github.com/evalysfun) • [Arcium Integration Guide](ARCIUM_INTEGRATION_GUIDE.md)
 
 </div>
