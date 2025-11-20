@@ -563,8 +563,8 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 | Curve Intelligence | ✅ Production Ready | 0.1.0 | ✅ Passing |
 | Launchpad Adapters | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Execution Engine | ✅ Production Ready | 0.1.0 | ✅ Passing |
-| Arcium Bridge Service | ✅ Production Ready | 0.1.0 | ✅ Passing |
-| Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | - |
+| Arcium Bridge Service | ✅ Production Ready | 0.1.0 | Testing |
+| Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | Testing |
 | Web UI | 🚧 In Development | - | - |
 
 ---
