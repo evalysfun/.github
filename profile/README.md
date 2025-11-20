@@ -564,7 +564,6 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 | Launchpad Adapters | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Execution Engine | ✅ Production Ready | 0.1.0 | ✅ Passing |
 | Arcium Bridge Service | ✅ Production Ready | 0.1.0 | ✅ Passing |
-| Arcium gMPC | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | - |
 | Web UI | 🚧 In Development | - | - |
 
