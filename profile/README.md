@@ -403,9 +403,11 @@ User Request
 
 ### 10. evalys-arcium-gMPC
 
-**Arcium gMPC Integration** - Confidential compute layer for ghost-mode execution using generalized Multi-Party Computation.
+**Arcium gMPC Bridge Service** - Python/FastAPI bridge service for encrypted intent processing and strategy generation using generalized Multi-Party Computation.
 
-**Purpose**: Specialized bridge service for encrypted intent processing and strategy generation. Enables Evalys to compute user intent, strategy logic, and execution parameters without revealing sensitive data, even during computation.
+**Purpose**: Bridge service (runs on port 8011) that communicates with the unified `evalys-arcium-gmpc-mxe` MXE to enable encrypted intent processing. Enables Evalys to compute user intent, strategy logic, and execution parameters without revealing sensitive data, even during computation.
+
+**Note**: This is the **bridge service** component. The actual MXE (Solana program) is in `evalys-arcium-gmpc-mxe`. This service handles the communication between Evalys components and the unified MXE.
 
 **Key Features**:
 - Encrypted intent processing (user intent → encrypted → computed → execution plan)
