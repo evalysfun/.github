@@ -56,7 +56,7 @@ Evalys follows a **layered architecture** where each layer provides specific fun
   │  │ API (Port 8002)  │  │ Adapters         │  │ API (Port 8010) │            │
   │  └──────────────────┘  │ API (Port 8005)  │  └──────────────────┘            │
   │                        └──────────────────┘  ┌──────────────────┐            │
-  │                                               │ Arcium gMCP      │            │
+  │                                               │ Arcium gMPC      │            │
   │                                               │ API (Port 8011)  │            │
   │                                               └──────────────────┘            │
 └───────────────────────────────┬──────────────────────────────────────────────┘
@@ -119,10 +119,12 @@ Evalys follows a **layered architecture** where each layer provides specific fun
 │                           ARCIUM LAYER (NEW)                                   │
 │                                                                                │
 │  ┌────────────────────────────────────────────────────────────────────┐      │
-│  │         Evalys Confidential Intel MXE (Solana)                      │      │
+│  │         Evalys Arcium gMPC MXE (Solana)                            │      │
 │  │  • confidential_strategy_plan()                                    │      │
 │  │  • confidential_risk_score()                                        │      │
 │  │  • confidential_curve_eval()                                        │      │
+│  │  • evalys_gmpc_strategy()                                           │      │
+│  │  • confidential_multi_user_analytics()                              │      │
 │  └────────────────────────────────────────────────────────────────────┘      │
 │                                                                                │
 │  ┌────────────────────────────────────────────────────────────────────┐      │
@@ -164,19 +166,23 @@ User Request
     │                          │
     │                          ├─► [Optional] Arcium Bridge ──► Confidential Strategy Planning
     │                          │      │
-    │                          │      └─► Arcium MXE ──► MPC Computation ──► Encrypted Plan
+    │                          │      └─► Arcium gMPC MXE ──► MPC Computation ──► Encrypted Plan
     │                          │
-    │                          ├─► [Optional] Arcium gMCP ──► Encrypted Intent Processing
+    │                          ├─► [Optional] Arcium gMPC ──► Encrypted Intent Processing
     │                          │      │
-    │                          │      └─► gMPC MXE ──► Encrypted Strategy ──► Execution Plan
+    │                          │      └─► Arcium gMPC MXE ──► Encrypted Strategy ──► Execution Plan
     │                          │
     │                          ├─► Burner Swarm ──► Provides Disposable Wallet
     │                          │
     │                          ├─► Curve Intelligence ──► Analyzes Opportunity
     │                          │      │
     │                          │      ├─► [Optional] Arcium Bridge ──► Confidential Curve Eval
+    │                          │      │      │
+    │                          │      │      └─► Arcium gMPC MXE ──► MPC Computation
     │                          │      │
-    │                          │      └─► [Optional] Arcium gMCP ──► Multi-User Confidential Analytics
+    │                          │      └─► [Optional] Arcium gMPC ──► Multi-User Confidential Analytics
+    │                          │              │
+    │                          │              └─► Arcium gMPC MXE ──► Aggregated Metrics
     │                          │
     │                          └─► Launchpad Adapter ──► Builds Instructions
     │
@@ -337,30 +343,38 @@ User Request
 - Curve analysis example (intelligence-driven decisions)
 - Privacy orchestration example (mode selection scenarios)
 
-**Status**: ✅ Available
+**Status**: Not available yet (stay tuned)
 
 **Repository**: `https://github.com/evalysfun/evalys` (in integration-examples directory)
 
 ---
 
-### 8. evalys-confidential-intel-mxe
+### 8. evalys-arcium-gmpc-mxe
 
-**Confidential Intel MXE** - Arcium-powered encrypted computation program.
+**Arcium gMPC MXE** - Unified Arcium MXE for confidential intel and gMPC strategy planning.
 
-**Purpose**: Solana program (MXE) that provides confidential strategy planning, risk scoring, and curve analytics using Arcium's encrypted supercomputer.
+**Purpose**: Fused Solana program (MXE) that combines confidential intelligence operations with generalized Multi-Party Computation (gMPC) for all Evalys confidential computation needs.
 
 **Key Features**:
-- Three encrypted computation functions (strategy plan, risk score, curve eval)
+- Five encrypted computation functions:
+  - `confidential_strategy_plan()` - Strategy generation from encrypted preferences
+  - `confidential_risk_score()` - Risk assessment with encrypted portfolio context
+  - `confidential_curve_eval()` - Curve analysis with encrypted user constraints
+  - `evalys_gmpc_strategy()` - Encrypted intent processing for execution plans
+  - `confidential_multi_user_analytics()` - Aggregated insights without exposing individual behavior
 - Arcis-based confidential instructions
 - MPC execution via Arcium network
 - Zero-knowledge data processing
+- Data encrypted even during computation (gMPC)
 - Deployed on Solana blockchain
 
 **Technology**: Rust, Arcis, Anchor, Solana
 
 **Status**: ✅ Framework Ready
 
-**Repository**: `https://github.com/evalysfun/evalys-confidential-intel-mxe`
+**Repository**: `https://github.com/evalysfun/evalys-arcium-gmpc-mxe`
+
+**Note**: This fused MXE replaces the separate `evalys-confidential-intel-mxe` and gMPC MXE components. The standalone folders are preserved for reference but are no longer used in active flows.
 
 ---
 
@@ -382,28 +396,6 @@ User Request
 **Status**: ✅ Production Ready
 
 **Repository**: `https://github.com/evalysfun/evalys-arcium-bridge-service`
-
----
-
-### 10. evalys-arcium-gMCP
-
-**Arcium gMPC Integration** - Confidential compute layer for ghost-mode execution using generalized Multi-Party Computation.
-
-**Purpose**: Specialized bridge service for encrypted intent processing and strategy generation. Enables Evalys to compute user intent, strategy logic, and execution parameters without revealing sensitive data, even during computation.
-
-**Key Features**:
-- Encrypted intent processing (user intent → encrypted → computed → execution plan)
-- gMPC-powered strategy generation without revealing raw inputs
-- Multi-user confidential analytics aggregation
-- REST API for integration (Port 8011)
-- Works alongside Arcium Bridge Service for different use cases
-- Standalone operation capability
-
-**Technology**: Python 3.10+, FastAPI, Rust (Arcis/Anchor for MXE), Solana-py
-
-**Status**: ✅ Framework Ready
-
-**Repository**: `https://github.com/evalysfun/evalys-arcium-gMCP`
 
 ---
 
@@ -478,8 +470,8 @@ User Request
    git clone https://github.com/evalysfun/evalys-launchpad-adapters
    git clone https://github.com/evalysfun/evalys-execution-engine
    git clone https://github.com/evalysfun/evalys-arcium-bridge-service
-   git clone https://github.com/evalysfun/evalys-arcium-gMCP
-   git clone https://github.com/evalysfun/evalys-confidential-intel-mxe
+   git clone https://github.com/evalysfun/evalys-arcium-gMPC
+   git clone https://github.com/evalysfun/evalys-arcium-gmpc-mxe
    ```
 
 2. **Set up shared virtual environment** (recommended):
@@ -544,8 +536,7 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 | Launchpad Adapters | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Execution Engine | ✅ Production Ready | 0.1.0 | ✅ Passing |
 | Arcium Bridge Service | ✅ Production Ready | 0.1.0 | ✅ Passing |
-| Arcium gMCP | ✅ Framework Ready | 0.1.0 | ✅ Passing |
-| Confidential Intel MXE | ✅ Framework Ready | 0.1.0 | - |
+| Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | - |
 | Web UI | 🚧 In Development | - | - |
 
 ---
@@ -617,8 +608,8 @@ Security is a core principle of Evalys. If you discover a security vulnerability
 - [x] Launchpad Adapters (framework)
 - [x] Execution Engine
 - [x] Arcium Bridge Service
-- [x] Arcium gMCP (framework)
-- [x] Confidential Intel MXE (framework)
+- [x] Arcium gMPC (framework)
+- [x] Arcium gMPC MXE (framework - fused)
 
 ### Phase 2: Platform Integration 🚧
 - [ ] Pump.fun full implementation
