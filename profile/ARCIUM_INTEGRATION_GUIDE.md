@@ -122,9 +122,11 @@ python -m src.api.server
 
 ### 3. evalys-arcium-gMPC
 
-**Python FastAPI service** that bridges Evalys to Arcium gMPC for encrypted intent processing and advanced confidential analytics.
+**Python FastAPI bridge service** that bridges Evalys to Arcium gMPC for encrypted intent processing and advanced confidential analytics.
 
 **Location**: `evalys-arcium-gMPC/`
+
+**Important**: This is the **bridge service** (Python/FastAPI) that runs on port 8011. It communicates with the unified `evalys-arcium-gmpc-mxe` MXE (Solana program) to perform encrypted computations.
 
 **API Endpoints**:
 - `POST /api/v1/gmpc/plan` - Get confidential execution plan from encrypted intent
@@ -143,11 +145,16 @@ uvicorn src.api.server:app --reload --port 8011
 - Multi-user analytics aggregation without exposing individual behavior
 - Advanced privacy where data remains encrypted even during computation
 
+**Architecture Flow**:
+```
+Privacy Engine → gMPC Bridge Service (this repo) → Unified gMPC MXE (evalys-arcium-gmpc-mxe) → Arcium MPC Cluster
+```
+
 **Key Difference from Arcium Bridge Service**:
 - **Arcium Bridge Service**: General confidential computation for strategy, risk, and curve analysis
 - **gMPC Bridge Service**: Specialized for encrypted intent processing and multi-party analytics
 
-Both services can work together or independently based on requirements.
+**Both bridge services use the same unified MXE**: Both `evalys-arcium-bridge-service` and `evalys-arcium-gMPC` communicate with the unified `evalys-arcium-gmpc-mxe` MXE, but call different encrypted instruction functions within it.
 
 ### 4. Updated Components
 
