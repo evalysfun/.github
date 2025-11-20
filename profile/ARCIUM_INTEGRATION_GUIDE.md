@@ -1,10 +1,15 @@
 # Evalys + Arcium Integration Guide
 
-**Complete guide to integrating Arcium's encrypted supercomputer with Evalys.**
+**Complete guide to integrating [Arcium's encrypted supercomputer](https://arcium.com/) with Evalys.**
 
 ## Overview
 
-Evalys now integrates with Arcium to provide **confidential computation** for strategy planning, risk assessment, and curve analytics. This enables privacy-preserving intelligence without exposing sensitive user data (wallet graphs, PnL history, alpha signals).
+Evalys now integrates with [Arcium](https://arcium.com/) to provide **confidential computation** for strategy planning, risk assessment, and curve analytics. This enables privacy-preserving intelligence without exposing sensitive user data (wallet graphs, PnL history, alpha signals).
+
+**About Arcium**: [Arcium](https://arcium.com/) is a decentralized private computation network that enables secure processing of encrypted data through Multi-Party Computation (MPC). Built for Solana developers, Arcium allows you to process sensitive data while maintaining privacy. Learn more at:
+- [Arcium Developer Documentation](https://docs.arcium.com/developers)
+- [Arcium GitHub Organization](https://github.com/orgs/arcium-hq/)
+- [Arcium Discord Community](https://discord.com/invite/arcium)
 
 Evalys supports two Arcium integration paths:
 - **Arcium Bridge Service**: General confidential computation for strategy planning, risk scoring, and curve evaluation
@@ -36,19 +41,12 @@ Evalys supports two Arcium integration paths:
        │                   │
        ▼                   ▼
 ┌─────────────────────────────────────────────────────────────┐
-│         Evalys Confidential Intel MXE (Solana)             │
+│         Evalys Arcium gMPC MXE (Solana)                    │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │  • confidential_strategy_plan()                      │  │
-│  │  • confidential_risk_score()                         │  │
-│  │  • confidential_curve_eval()                         │  │
-│  └──────────────────────────────────────────────────────┘  │
-└───────────────────────────┬─────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│         Evalys gMPC Strategy MXE (Solana)                  │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  • evalys_gmpc_strategy() - Encrypted intent → plan  │  │
+│  │  • confidential_strategy_plan()                       │  │
+│  │  • confidential_risk_score()                          │  │
+│  │  • confidential_curve_eval()                           │  │
+│  │  • evalys_gmpc_strategy() - Encrypted intent → plan   │  │
 │  │  • confidential_multi_user_analytics()                │  │
 │  └──────────────────────────────────────────────────────┘  │
 └───────────────────────────┬─────────────────────────────────┘
@@ -67,26 +65,37 @@ Evalys supports two Arcium integration paths:
 
 ## Components
 
-### 1. evalys-confidential-intel-mxe
+### 1. evalys-arcium-gmpc-mxe
 
-**Rust/Arcis MXE program** deployed on Solana that defines encrypted computation functions.
+**Unified Rust/[Arcis](https://docs.arcium.com/developers) MXE program** deployed on Solana that combines confidential intelligence operations with gMPC strategy planning.
 
-**Location**: `evalys-confidential-intel-mxe/`
+**Location**: `evalys-arcium-gmpc-mxe/`
+
+**Built with Arcium**: This MXE uses [Arcium's Arcis framework](https://docs.arcium.com/developers) to write confidential instructions in Rust. The Arcis framework extends Solana's Anchor tooling, allowing you to add privacy by marking functions as confidential—no cryptography knowledge required.
 
 **Key Files**:
 - `encrypted-ixs/confidential_strategy.rs` - Strategy planning computation
 - `encrypted-ixs/confidential_risk.rs` - Risk scoring computation
 - `encrypted-ixs/confidential_curve.rs` - Curve evaluation computation
-- `programs/evalys-confidential-intel/` - Solana program that invokes encrypted instructions
+- `encrypted-ixs/evalys_gmpc_strategy.rs` - gMPC encrypted intent processing
+- `encrypted-ixs/confidential_multi_user.rs` - Multi-user analytics
+- `programs/evalys-arcium-gmpc-mxe/` - Unified Solana program
 
 **Deployment**:
 ```bash
-cd evalys-confidential-intel-mxe
+cd evalys-arcium-gmpc-mxe
 arcium deploy \
   --cluster-offset 1078779259 \
   --keypair-path ~/.config/solana/id.json \
   --rpc-url https://devnet.helius-rpc.com/?api-key=<your-key>
 ```
+
+**Arcium Resources**:
+- [Arcium CLI Documentation](https://docs.arcium.com/developers/installation) - Learn how to use the `arcium` CLI (wrapper over `anchor` CLI)
+- [Arcium Examples Repository](https://github.com/orgs/arcium-hq/) - See example Arcium apps
+- [Arcium Developer Docs](https://docs.arcium.com/developers) - Complete developer guide
+
+**Note**: This fused MXE replaces the separate `evalys-confidential-intel-mxe` and gMPC MXE components. Both bridge services (Arcium Bridge Service and gMPC Bridge Service) use this unified MXE.
 
 ### 2. evalys-arcium-bridge-service
 
@@ -111,11 +120,11 @@ python -m src.api.server
 - Risk scoring with portfolio context
 - Curve evaluation with user constraints
 
-### 3. evalys-arcium-gMCP
+### 3. evalys-arcium-gMPC
 
 **Python FastAPI service** that bridges Evalys to Arcium gMPC for encrypted intent processing and advanced confidential analytics.
 
-**Location**: `evalys-arcium-gMCP/`
+**Location**: `evalys-arcium-gMPC/`
 
 **API Endpoints**:
 - `POST /api/v1/gmpc/plan` - Get confidential execution plan from encrypted intent
@@ -124,7 +133,7 @@ python -m src.api.server
 
 **Running**:
 ```bash
-cd evalys-arcium-gMCP
+cd evalys-arcium-gMPC
 uvicorn src.api.server:app --reload --port 8011
 ```
 
@@ -267,7 +276,7 @@ API_PORT=8010
 
 ### gMPC Bridge Service Configuration
 
-Create `.env` in `evalys-arcium-gMCP/`:
+Create `.env` in `evalys-arcium-gMPC/`:
 
 ```env
 ARCIUM_MXE_ENDPOINT=https://arcium-api.example.com
@@ -297,10 +306,14 @@ The Privacy Engine automatically detects both Arcium Bridge Service and gMPC Bri
 - **`integration-examples/arcium_confidential_example.py`** - Confidential entry with Arcium Shield
 - **`integration-examples/arcium_multi_user_intel_example.py`** - Multi-user confidential analytics
 
+**Note**: These examples use the unified `evalys-arcium-gmpc-mxe` for confidential computation.
+
 ### gMPC Bridge Service Examples
 
 - **`integration-examples/gmcp_confidential_intent_example.py`** - Encrypted intent processing with gMPC
 - **`integration-examples/gmcp_multi_user_analytics_example.py`** - Multi-user analytics via gMPC
+
+**Note**: These examples use the unified `evalys-arcium-gmpc-mxe` for gMPC encrypted intent processing.
 
 ### Choosing Between Services
 
@@ -314,6 +327,8 @@ The Privacy Engine automatically detects both Arcium Bridge Service and gMPC Bri
 - You want advanced multi-party analytics
 - You need data to remain encrypted even during computation
 - You want to process trader profiles and market snapshots confidentially
+
+**Unified MXE**: Both services use the same `evalys-arcium-gmpc-mxe` which provides all encrypted computation functions (confidential intel + gMPC) in one unified program, simplifying deployment and maintenance.
 
 ## Security Model
 
@@ -344,30 +359,74 @@ The Privacy Engine automatically detects both Arcium Bridge Service and gMPC Bri
 
 ## Next Steps
 
-### For Arcium Bridge Service
+### Deployment Steps
 
-1. Deploy `evalys-confidential-intel-mxe` to Solana devnet
-2. Start `evalys-arcium-bridge-service` on port 8010
-3. Enable Arcium Shield in Privacy Engine (`enable_arcium=True`)
-4. Test with `arcium_confidential_example.py`
-5. Deploy to production
+1. **Deploy unified MXE**: Deploy `evalys-arcium-gmpc-mxe` to Solana devnet
+   ```bash
+   cd evalys-arcium-gmpc-mxe
+   arcium deploy \
+     --cluster-offset 1078779259 \
+     --keypair-path ~/.config/solana/id.json \
+     --rpc-url https://devnet.helius-rpc.com/?api-key=<your-key>
+   ```
 
-### For gMPC Bridge Service
+2. **Start Arcium Bridge Service** (Port 8010):
+   ```bash
+   cd evalys-arcium-bridge-service
+   python -m src.api.server
+   ```
 
-1. Deploy `evalys-gmpc-strategy` MXE to Solana devnet (from `evalys-arcium-gMCP/mxe`)
-2. Start `evalys-arcium-gMCP` bridge service on port 8011
-3. Enable gMPC mode in Privacy Engine (`use_gmcp=True`)
-4. Test with `gmcp_confidential_intent_example.py`
-5. Deploy to production
+3. **Start gMPC Bridge Service** (Port 8011):
+   ```bash
+   cd evalys-arcium-gMPC
+   uvicorn src.api.server:app --reload --port 8011
+   ```
+
+4. **Enable in Privacy Engine**:
+   - For Arcium Bridge: `enable_arcium=True`
+   - For gMPC Bridge: `use_gmcp=True`
+
+5. **Test with examples**:
+   - `arcium_confidential_example.py` (Arcium Bridge Service)
+   - `gmcp_confidential_intent_example.py` (gMPC Bridge Service)
+
+6. **Deploy to production**
 
 ### Using Both Services
 
-Both services can run simultaneously and be used for different use cases:
-- Use Arcium Bridge Service for general confidential computation
-- Use gMPC Bridge Service for encrypted intent processing and advanced analytics
+Both services use the same unified `evalys-arcium-gmpc-mxe` but for different use cases:
+- **Arcium Bridge Service**: General confidential computation (strategy, risk, curve)
+- **gMPC Bridge Service**: Encrypted intent processing and multi-user analytics
+
+The unified MXE provides all encrypted computation functions in one place, simplifying deployment and maintenance.
 
 ## Support
 
-- Evalys: [GitHub Issues](https://github.com/evalysfun)
-- Arcium: [Discord](https://discord.gg/arcium)
+### Evalys
+- [GitHub Issues](https://github.com/evalysfun)
+- [Twitter](https://x.com/evalysfun)
+
+### Arcium
+- [Arcium Discord](https://discord.com/invite/arcium) - Join the community and get help
+- [Arcium Developer Documentation](https://docs.arcium.com/developers) - Complete developer guide
+- [Arcium GitHub Organization](https://github.com/orgs/arcium-hq/) - Source code and examples
+- [Arcium Website](https://arcium.com/) - Learn more about Arcium
+
+## Learn More About Arcium
+
+Evalys leverages [Arcium's encrypted supercomputer](https://arcium.com/) to enable confidential computation. Arcium is a decentralized private computation network that enables secure processing of encrypted data through Multi-Party Computation (MPC).
+
+**Key Arcium Resources**:
+- [Getting Started with Arcium](https://docs.arcium.com/developers/installation) - Set up your development environment
+- [Hello World Tutorial](https://docs.arcium.com/developers/hello-world) - Create your first confidential instruction
+- [Computation Lifecycle](https://docs.arcium.com/developers/computation-lifecycle) - Understand how confidential computations work
+- [Arcium Examples Repository](https://github.com/orgs/arcium-hq/) - Example Arcium applications
+- [TypeScript SDK Reference](https://ts.arcium.com/api) - Complete API documentation
+
+**How Arcium Works**:
+1. Client encrypts data and sends it to your MXE program
+2. Your program submits the computation to Arcium's network of MPC nodes
+3. Nodes process the data while keeping it encrypted, then return the results
+
+The entire process happens on-chain through Solana, with each step verified and coordinated by Arcium's programs. For more details, see the [Arcium Developer Documentation](https://docs.arcium.com/developers).
 
