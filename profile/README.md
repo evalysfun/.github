@@ -21,7 +21,9 @@
 
 The system is architected as a collection of independent, reusable components that can operate standalone or integrate seamlessly to provide comprehensive privacy-preserving transaction execution capabilities.
 
-**Evalys now integrates with Arcium's encrypted supercomputer** – enabling confidential computation for strategy planning, risk assessment, and curve analytics. Your trading intent, risk profile, and strategy are computed confidentially via MPC, while Evalys executes the resulting plan using burner swarms, MEV-safe routing, and launchpad adapters on Solana.
+**Evalys now integrates with [Arcium's encrypted supercomputer](https://arcium.com/)** – enabling confidential computation for strategy planning, risk assessment, and curve analytics. Your trading intent, risk profile, and strategy are computed confidentially via Multi-Party Computation (MPC), while Evalys executes the resulting plan using burner swarms, MEV-safe routing, and launchpad adapters on Solana.
+
+**Built with Arcium**: Evalys leverages [Arcium's decentralized private computation network](https://docs.arcium.com/developers) to process encrypted data securely. Learn more about Arcium's technology at their [GitHub organization](https://github.com/orgs/arcium-hq/) and [developer documentation](https://docs.arcium.com/developers).
 
 ---
 
@@ -343,7 +345,7 @@ User Request
 - Curve analysis example (intelligence-driven decisions)
 - Privacy orchestration example (mode selection scenarios)
 
-**Status**: Not available yet (stay tuned)
+**Status**: ✅ Available
 
 **Repository**: `https://github.com/evalysfun/evalys` (in integration-examples directory)
 
@@ -399,6 +401,28 @@ User Request
 
 ---
 
+### 10. evalys-arcium-gMPC
+
+**Arcium gMPC Integration** - Confidential compute layer for ghost-mode execution using generalized Multi-Party Computation.
+
+**Purpose**: Specialized bridge service for encrypted intent processing and strategy generation. Enables Evalys to compute user intent, strategy logic, and execution parameters without revealing sensitive data, even during computation.
+
+**Key Features**:
+- Encrypted intent processing (user intent → encrypted → computed → execution plan)
+- gMPC-powered strategy generation without revealing raw inputs
+- Multi-user confidential analytics aggregation
+- REST API for integration (Port 8011)
+- Works alongside Arcium Bridge Service for different use cases
+- Standalone operation capability
+
+**Technology**: Python 3.10+, FastAPI, Rust (Arcis/Anchor for MXE), Solana-py
+
+**Status**: ✅ Framework Ready
+
+**Repository**: `https://github.com/evalysfun/evalys-arcium-gMPC`
+
+---
+
 ## System Capabilities
 
 ### Privacy Features
@@ -434,7 +458,9 @@ User Request
 - **Language**: Python 3.10+, Rust (for MXE)
 - **Framework**: FastAPI (REST APIs), Anchor (Solana programs)
 - **Blockchain**: Solana (solana-py, solders)
-- **Confidential Compute**: Arcium (MPC, Arcis DSL)
+- **Confidential Compute**: [Arcium](https://arcium.com/) (MPC, [Arcis DSL](https://docs.arcium.com/developers))
+  - Built using [Arcium's Arcis framework](https://docs.arcium.com/developers) for confidential instructions
+  - Leverages [Arcium's MPC network](https://github.com/orgs/arcium-hq/) for encrypted computation
 - **Cryptography**: PyNaCl (encryption), x25519 + Rescue cipher (Arcium)
 - **Data Processing**: NumPy, SciPy
 
@@ -536,6 +562,7 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 | Launchpad Adapters | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Execution Engine | ✅ Production Ready | 0.1.0 | ✅ Passing |
 | Arcium Bridge Service | ✅ Production Ready | 0.1.0 | ✅ Passing |
+| Arcium gMPC | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | - |
 | Web UI | 🚧 In Development | - | - |
 
@@ -647,8 +674,10 @@ https://github.com/evalysfun
 
 **Evalys** - Privacy-preserving infrastructure for the future of memecoin trading
 
-*Powered by Arcium's encrypted supercomputer for confidential computation*
+*Powered by [Arcium's encrypted supercomputer](https://arcium.com/) for confidential computation*
 
 [Website](https://evalys.fun) • [Documentation](https://docs.evalys.fun) • [GitHub](https://github.com/evalysfun) • [Arcium Integration Guide](ARCIUM_INTEGRATION_GUIDE.md)
+
+**Built with Arcium**: [Arcium GitHub](https://github.com/orgs/arcium-hq/) • [Arcium Developer Docs](https://docs.arcium.com/developers) • [Arcium Discord](https://discord.com/invite/arcium)
 
 </div>
