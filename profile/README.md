@@ -15,6 +15,87 @@
 
 ---
 
+## ⚙️ $EVA Flywheel — Cashflow-Driven Growth Loop
+
+**1️⃣ Usage Increases**
+
+More traders → more privacy engine usage → more execution flow → more fees generated.
+
+**⬇️**
+
+**2️⃣ Cashflow Enters the System**
+
+Protocol revenue automatically routes into the Cashflow Split Engine.
+
+**⬇️**
+
+**3️⃣ Buybacks + Rewards**
+
+- Buybacks reduce circulating supply
+- Stakers/holders receive rewards
+- Treasury expands ecosystem growth
+
+**⬇️**
+
+**4️⃣ Token Strengthens**
+
+Reduced sell pressure + consistent buy pressure = Market cap increases based on real usage, not speculation.
+
+**⬇️**
+
+**5️⃣ Incentives Improve**
+
+A stronger token → more users → more integrations → more activity.
+
+**⬇️**
+
+**6️⃣ More Usage**
+
+The cycle loops back, compounding the entire ecosystem.
+
+### Visual Diagram
+
+```
+┌──────────────────────────┐
+│        1. USAGE         │
+│  More trades + activity │
+└──────────────┬──────────┘
+               │
+               ▼
+┌──────────────────────────┐
+│   2. PROTOCOL CASHFLOW   │
+│ Fees → Privacy Engine →  │
+│   Execution Engine       │
+└──────────────┬──────────┘
+               │
+               ▼
+┌──────────────────────────┐
+│ 3. CASHFLOW SPLIT ENGINE │
+│  • Buybacks              │
+│  • Treasury              │
+│  • Rewards to holders    │
+└──────────────┬──────────┘
+               │
+               ▼
+┌──────────────────────────┐
+│    4. STRONGER TOKEN     │
+│ Less supply + more value │
+│    Market cap increases  │
+└──────────────┬──────────┘
+               │
+               ▼
+┌──────────────────────────┐
+│     5. MORE USERS        │
+│  Better incentives →     │
+│  more traders enter      │
+└──────────────┬──────────┘
+               │
+               ▼
+         (loops back)
+```
+
+---
+
 ## Overview
 
 **Evalys** is a modular, privacy-preserving infrastructure system designed specifically for memecoin launchpad platforms on Solana. Built with a focus on privacy, security, and composability, Evalys provides a complete toolkit for executing transactions while maintaining user anonymity and protecting against MEV attacks.
@@ -563,8 +644,8 @@ The system is designed to accommodate new launchpads, privacy modes, and executi
 | Curve Intelligence | ✅ Production Ready | 0.1.0 | ✅ Passing |
 | Launchpad Adapters | ✅ Framework Ready | 0.1.0 | ✅ Passing |
 | Execution Engine | ✅ Production Ready | 0.1.0 | ✅ Passing |
-| Arcium Bridge Service | ✅ Production Ready | 0.1.0 | Testing |
-| Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | Testing |
+| Arcium Bridge Service | ✅ Production Ready | 0.1.0 | ✅ Passing |
+| Arcium gMPC MXE | ✅ Framework Ready | 0.1.0 | - |
 | Web UI | 🚧 In Development | - | - |
 
 ---
